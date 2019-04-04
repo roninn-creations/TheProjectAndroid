@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">TheProject</string>
+
+    <!-- API strings -->
+    <string name="test_token">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTM3Y2U3OWRjMmExMjBkNDAyMWNjNiIsImlhdCI6MTU1NDMzMjI1MX0.czaAMZwbLVwRyRxsAkmNYhvvpZdRbTllfdJr3G7mjTc</string>
+    <string name="home_url">https://the-project-yo.herokuapp.com</string>
+    <string name="auth_url">https://the-project-yo.herokuapp.com/auth</string>
+    <string name="users_url">https://the-project-yo.herokuapp.com/users</string>
+    <string name="places_url">https://the-project-yo.herokuapp.com/places</string>
+    <string name="reviews_url">https://the-project-yo.herokuapp.com/reviews</string>
+
+    <!-- Layout strings -->
     <string name="action_settings">Settings</string>
 </resources>
