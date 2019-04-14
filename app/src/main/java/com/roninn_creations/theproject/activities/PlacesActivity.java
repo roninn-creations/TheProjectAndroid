@@ -5,64 +5,47 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.Gson;
 import com.roninn_creations.theproject.R;
+import com.roninn_creations.theproject.adapters.PlaceAdapter;
 import com.roninn_creations.theproject.models.Place;
-import com.roninn_creations.theproject.network.ApiGateway;
-import com.roninn_creations.theproject.network.JsonConverter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+
+import static com.roninn_creations.theproject.TheProjectApplication.getPlacesService;
+import static com.roninn_creations.theproject.TheProjectApplication.getRequestHandler;
 
 public class PlacesActivity extends AppCompatActivity {
 
-    public static final String TAG = "PLACES";
+    private static final String TAG = PlacesActivity.class.getName();
 
-    private RequestQueue requestQueue;
-    private Gson gson;
-    private ArrayList<Place> places;
-    //private PlaceAdapter placeAdapter;
+    private List<Place> places;
+    private PlaceAdapter placeAdapter;
 
     private Toolbar toolbar;
     private ProgressBar progressBar;
-    //private ListView placeList;
-    private TextView placesText;
+    private ListView placesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_places);
 
-        requestQueue = ApiGateway.getInstance(this).getRequestQueue();
-        gson = JsonConverter.getInstance().getGson();
-
         places = new ArrayList<>();
+        placeAdapter = new PlaceAdapter(this, places);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //progressBar = this.findViewById(R.id.progress_bar);
-        //placeList = this.findViewById(R.id.users_list);
-
-        placesText = findViewById(R.id.places_text);
+        progressBar = this.findViewById(R.id.progress_bar);
+        placesList = this.findViewById(R.id.places_list);
+        placesList.setAdapter(placeAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,63 +60,18 @@ public class PlacesActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        printText("Started!");
 
-        //progressBar.setVisibility(View.VISIBLE);
-        //placeList.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        placesList.setVisibility(View.GONE);
 
-        //Request for getting the list of all users
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET,
-                getString(R.string.places_url), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response){
-                        printList(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(TAG, "WARNING: Error response!", error);
-                        printText("ERROR:" + error.networkResponse.statusCode);
-                    }
-                })
-        {@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
-            Map<String, String> headers = new HashMap<>();
-            //headers.put("Content-Type", "application/json");
-            headers.put("Authorization",
-                    "Bearer " + getString(R.string.test_token));
-            return headers;}
-        };
-        jsonRequest.setTag(TAG);
-        requestQueue.add(jsonRequest);
+        getPlacesService().readAll(this::updateList, TAG);
+    }
 
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-//                getString(R.string.places_url),
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response){
-//                        printText(response);
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.w(TAG, "WARNING: Error response!", error);
-//                        printText("ERROR:" + error.networkResponse.statusCode);
-//                    }
-//                })
-//        {@Override
-//        public Map<String, String> getHeaders() throws AuthFailureError {
-//            Map<String, String> headers = new HashMap<>();
-//            //headers.put("Content-Type", "application/json");
-//            headers.put("Authorization",
-//                    "Bearer " + getString(R.string.test_token));
-//            return headers;}
-//        };
-//        stringRequest.setTag(TAG);
-//        requestQueue.add(stringRequest);
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        getRequestHandler().cancelRequests(TAG);
     }
 
     @Override
@@ -152,34 +90,17 @@ public class PlacesActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            printText("Pressed!");
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void printText(String response) {
-        placesText.setText(response);
-    }
-
-    private void printList(JSONObject json) {
-        JSONArray jsonPlaces = json.optJSONArray("rows");
-        places.clear();
-        try {
-            for (int i = 0; i < jsonPlaces.length(); i++){
-                places.add(gson.fromJson(jsonPlaces.getString(i), Place.class));
-            }
-        }
-        catch (JSONException e) {
-            String message = "ERROR:" + e.getMessage();
-            Log.w(TAG, message);
-            placesText.setText(message);
-        }
-        StringBuilder message = new StringBuilder();
-        for (Place place: places) {
-            message.append(place.getName()).append(" ");
-        }
-        placesText.setText(message);
+    private void updateList(List<Place> places){
+        this.places.clear();
+        this.places.addAll(places);
+        placeAdapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.GONE);
+        placesList.setVisibility(View.VISIBLE);
     }
 }

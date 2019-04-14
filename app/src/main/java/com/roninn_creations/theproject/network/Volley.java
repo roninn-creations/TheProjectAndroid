@@ -12,12 +12,12 @@ import static com.android.volley.toolbox.Volley.newRequestQueue;
 /***
  * From: https://developer.android.com/training/volley/requestqueue
  */
-public class ApiGateway {
-    private static ApiGateway instance;
+public class Volley {
+
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
 
-    private ApiGateway(Context context) {
+    public Volley(Context context) {
         requestQueue = newRequestQueue(context.getApplicationContext());
 
         imageLoader = new ImageLoader(requestQueue,
@@ -35,13 +35,6 @@ public class ApiGateway {
                         cache.put(url, bitmap);
                     }
                 });
-    }
-
-    public static synchronized ApiGateway getInstance(Context context) {
-        if (instance == null) {
-            instance = new ApiGateway(context);
-        }
-        return instance;
     }
 
     public RequestQueue getRequestQueue() {
