@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.PlacesActivity">
+    tools:context=".activities.PlaceActivity">
 
-    <include layout="@layout/content_places" />
+    <include layout="@layout/content_place" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add"
@@ -16,6 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_fab"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_star_half" />
 
 </android.support.design.widget.CoordinatorLayout>

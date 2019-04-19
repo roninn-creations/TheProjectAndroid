@@ -12,11 +12,11 @@ import com.roninn_creations.theproject.models.Place;
 
 import java.util.List;
 
-public class PlaceAdapter extends ArrayAdapter<Place> {
+public class PlacesAdapter extends ArrayAdapter<Place> {
 
     private Context context;
 
-    public PlaceAdapter(Context context, List<Place> places) {
+    public PlacesAdapter(Context context, List<Place> places) {
         super(context, 0, places);
         this.context = context;
     }
@@ -27,9 +27,9 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item_place, parent, false);
         }
-        TextView nameText = convertView.findViewById(R.id.name_text);
-        TextView addressText = convertView.findViewById(R.id.address_text);
-        TextView categoryText = convertView.findViewById(R.id.category_text);
+        TextView nameText = convertView.findViewById(R.id.text_name);
+        TextView addressText = convertView.findViewById(R.id.text_address);
+        TextView categoryText = convertView.findViewById(R.id.text_category);
         if (place != null){
             nameText.setText(place.getName());
             addressText.setText(place.getAddress());

@@ -13,15 +13,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activities.PlacesActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_places">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.PlaceActivity"
+            android:label="@string/title_activity_place"
+            android:parentActivityName=".activities.PlacesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.roninn_creations.theproject.activities.PlacesActivity" />
+        </activity>
+
+        <activity
+            android:name=".activities.AddPlaceActivity"
+            android:label="@string/title_activity_add_place"
+            android:parentActivityName=".activities.PlacesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.roninn_creations.theproject.activities.PlacesActivity" />
+        </activity>
+
+        <activity
+            android:name=".activities.AddReviewActivity"
+            android:label="@string/title_activity_add_review"
+            android:parentActivityName=".activities.PlaceActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.roninn_creations.theproject.activities.PlaceActivity" />
         </activity>
     </application>
 

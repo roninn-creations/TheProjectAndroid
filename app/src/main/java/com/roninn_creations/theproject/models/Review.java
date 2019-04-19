@@ -7,12 +7,16 @@ public class Review {
     private String id;
     private User user;
     private Place place;
+    private int rating;
+    private String comment;
     private Date createdAt;
 
-    public Review(String id, User user, Place place, Date createdAt) {
+    public Review(String id, User user, Place place, int rating, String comment, Date createdAt) {
         this.id = id;
         this.user = user;
         this.place = place;
+        this.rating = rating;
+        this.comment = comment;
         this.createdAt = createdAt;
     }
 
@@ -38,6 +42,22 @@ public class Review {
 
     public void setPlace(Place place) {
         this.place = place;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Date getCreatedAt() {

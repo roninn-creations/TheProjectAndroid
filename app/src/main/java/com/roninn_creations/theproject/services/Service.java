@@ -3,9 +3,15 @@ package com.roninn_creations.theproject.services;
 import com.google.gson.Gson;
 import com.roninn_creations.theproject.network.RequestHandler;
 
-public abstract class Service {
+abstract class Service {
 
-    String path;
-    Gson gson;
-    RequestHandler requestHandler;
+    final String path;
+    final Gson gson;
+    final RequestHandler requestHandler;
+
+    protected Service(String path, Gson gson, RequestHandler requestHandler) {
+        this.path = path;
+        this.gson = gson;
+        this.requestHandler = requestHandler;
+    }
 }

@@ -20,9 +20,9 @@ import java.util.function.Consumer;
 
 public class RequestHandler{
 
-    private String url;
-    private String token;
-    private RequestQueue requestQueue;
+    private final String url;
+    private final String token;
+    private final RequestQueue requestQueue;
 
     public RequestHandler(String url, String token, RequestQueue requestQueue){
         this.url = url;
@@ -47,8 +47,7 @@ public class RequestHandler{
         {@Override
         public Map<String, String> getHeaders() throws AuthFailureError {
             Map<String, String> headers = new HashMap<>();
-            headers.put("Authorization",
-                    "Bearer " + token);
+            headers.put("Authorization", "Bearer " + token);
             return headers;}
         };
         request.setTag(tag);
@@ -73,8 +72,7 @@ public class RequestHandler{
         public Map<String, String> getHeaders() throws AuthFailureError {
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
-            headers.put("Authorization",
-                    "Bearer " + token);
+            headers.put("Authorization", "Bearer " + token);
             return headers;}
         };
         request.setTag(tag);
@@ -99,8 +97,7 @@ public class RequestHandler{
         public Map<String, String> getHeaders() throws AuthFailureError {
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
-            headers.put("Authorization",
-                    "Bearer " + token);
+            headers.put("Authorization", "Bearer " + token);
             return headers;}
         };
         request.setTag(tag);
@@ -124,8 +121,7 @@ public class RequestHandler{
         {@Override
         public Map<String, String> getHeaders() throws AuthFailureError {
             Map<String, String> headers = new HashMap<>();
-            headers.put("Authorization",
-                    "Bearer " + token);
+            headers.put("Authorization", "Bearer " + token);
             return headers;}
         };
         request.setTag(tag);
@@ -149,8 +145,7 @@ public class RequestHandler{
         {@Override
         public Map<String, String> getHeaders() throws AuthFailureError {
             Map<String, String> headers = new HashMap<>();
-            headers.put("Authorization",
-                    "Bearer " + token);
+            headers.put("Authorization", "Bearer " + token);
             return headers;}
         };
         request.setTag(tag);
@@ -174,8 +169,7 @@ public class RequestHandler{
         {@Override
         public Map<String, String> getHeaders() throws AuthFailureError {
             Map<String, String> headers = new HashMap<>();
-            headers.put("Authorization",
-                    "Bearer " + token);
+            headers.put("Authorization", "Bearer " + token);
             return headers;}
         };
         request.setTag(tag);

@@ -2,6 +2,25 @@ package com.roninn_creations.theproject.models;
 
 public class Place {
 
+    public enum Category{
+        NA("N/A"),
+        BAR("Bar"),
+        CAFE("Cafe"),
+        HOTEL("Hotel"),
+        RESTAURANT("Restaurant");
+
+        private final String name;
+
+        Category(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
     private String id;
     private String name;
     private String address;

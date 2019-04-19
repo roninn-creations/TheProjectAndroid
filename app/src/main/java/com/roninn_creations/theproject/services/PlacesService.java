@@ -14,28 +14,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.roninn_creations.theproject.TheProjectApplication.getGson;
-
 public class PlacesService extends Service implements IService<Place> {
 
     public PlacesService(String path, Gson gson, RequestHandler requestHandler){
-        this.path = path;
-        this.gson = gson;
-        this.requestHandler = requestHandler;
+        super(path, gson, requestHandler);
     }
 
     public void readAll(Consumer<List<Place>> onResponse, String tag){
         Consumer<JSONObject> consumer = new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject response) {
-                List<Place> places = new ArrayList<>();
-                JSONArray jsonPlaces = response.optJSONArray("rows");
                 try {
+                    List<Place> places = new ArrayList<>();
+                    JSONArray jsonPlaces = response.optJSONArray("rows");
                     for (int i = 0; i < jsonPlaces.length(); i++)
-                        places.add(getGson().fromJson(jsonPlaces.getString(i), Place.class));
-                    onResponse.accept(places);
-                }
-                catch (JSONException e) {
+                        places.add(gson.fromJson(jsonPlaces.getString(i), Place.class));
+                    if (onResponse != null)
+                        onResponse.accept(places);
+                } catch (JSONException e) {
                     String message = "ERROR:" + e.getMessage();
                     Log.w(tag, message);
                 }
@@ -49,7 +45,8 @@ public class PlacesService extends Service implements IService<Place> {
             @Override
             public void accept(JSONObject response) {
                 Place place = gson.fromJson(response.toString(), Place.class);
-                onResponse.accept(place);
+                if (onResponse != null)
+                    onResponse.accept(place);
             }
         };
         requestHandler.get(path + id, consumer, tag);
@@ -60,7 +57,8 @@ public class PlacesService extends Service implements IService<Place> {
             @Override
             public void accept(JSONObject response) {
                 Place place = gson.fromJson(response.toString(), Place.class);
-                onResponse.accept(place);
+                if (onResponse != null)
+                    onResponse.accept(place);
             }
         };
         try {
@@ -78,7 +76,8 @@ public class PlacesService extends Service implements IService<Place> {
             @Override
             public void accept(JSONObject response) {
                 Place place = gson.fromJson(response.toString(), Place.class);
-                onResponse.accept(place);
+                if (onResponse != null)
+                    onResponse.accept(place);
             }
         };
         try {
@@ -96,7 +95,8 @@ public class PlacesService extends Service implements IService<Place> {
             @Override
             public void accept(JSONObject response) {
                 Place place = gson.fromJson(response.toString(), Place.class);
-                onResponse.accept(place);
+                if (onResponse != null)
+                    onResponse.accept(place);
             }
         };
         requestHandler.delete(path + id, consumer, tag);

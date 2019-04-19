@@ -14,8 +14,8 @@ import static com.android.volley.toolbox.Volley.newRequestQueue;
  */
 public class Volley {
 
-    private RequestQueue requestQueue;
-    private ImageLoader imageLoader;
+    private final RequestQueue requestQueue;
+    private final ImageLoader imageLoader;
 
     public Volley(Context context) {
         requestQueue = newRequestQueue(context.getApplicationContext());

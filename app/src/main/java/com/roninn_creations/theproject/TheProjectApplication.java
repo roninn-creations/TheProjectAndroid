@@ -21,6 +21,7 @@ public class TheProjectApplication extends Application {
     private static IService<Place> placesService;
     private static IService<Review> reviewsService;
     private static IService<User> usersService;
+    private static User user;
 
     @Override
     public void onCreate(){
@@ -29,12 +30,14 @@ public class TheProjectApplication extends Application {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat(getString(R.string.date_format)).create();
         gson = gsonBuilder.create();
-
         Volley volley = new Volley(this);
         requestHandler = new RequestHandler(getString(R.string.base_url), getString(R.string.test_token), volley.getRequestQueue());
         placesService = new PlacesService(getString(R.string.places_path), gson, requestHandler);
         reviewsService = new ReviewsService(getString(R.string.reviews_path), gson, requestHandler);
         usersService = new UsersService(getString(R.string.users_path), gson, requestHandler);
+        user = new User(getString(R.string.admin_id),
+                getString(R.string.admin_name),
+                getString(R.string.admin_picture));
     }
 
     public static Gson getGson(){
@@ -55,5 +58,13 @@ public class TheProjectApplication extends Application {
 
     public static IService<User> getUsersService(){
         return usersService;
+    }
+
+    public static User getUser(){
+        return user;
+    }
+
+    public static void setUser(User user){
+        TheProjectApplication.user = user;
     }
 }
