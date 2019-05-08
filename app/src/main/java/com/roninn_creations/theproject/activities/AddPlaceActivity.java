@@ -51,25 +51,25 @@ public class AddPlaceActivity extends AppCompatActivity {
     }
 
     private void onSaveButtonClick(View view){
-        String category;
-        if (barRadio.isChecked())
-            category = Place.Category.BAR.toString();
-        else if (cafeRadio.isChecked())
-            category = Place.Category.CAFE.toString();
-        else if (hotelRadio.isChecked())
-            category = Place.Category.HOTEL.toString();
-        else if (restaurantRadio.isChecked())
-            category = Place.Category.RESTAURANT.toString();
-        else
-            category = Place.Category.NA.toString();
-
-        Place place = new Place(
-                null,
-                nameEditor.getText().toString(),
-                addressEditor.getText().toString(),
-                category);
-
-        getPlacesService().create(place, this::onCreateResponse, TAG);
+//        String category;
+//        if (barRadio.isChecked())
+//            category = Place.Category.BAR.toString();
+//        else if (cafeRadio.isChecked())
+//            category = Place.Category.CAFE.toString();
+//        else if (hotelRadio.isChecked())
+//            category = Place.Category.HOTEL.toString();
+//        else if (restaurantRadio.isChecked())
+//            category = Place.Category.RESTAURANT.toString();
+//        else
+//            category = Place.Category.NA.toString();
+//
+//        Place place = new Place(
+//                null,
+//                nameEditor.getText().toString(),
+//                addressEditor.getText().toString(),
+//                category);
+//
+//        getPlacesService().create(place, this::onCreateResponse, TAG);
     }
 
     private void onCreateResponse(Place place){

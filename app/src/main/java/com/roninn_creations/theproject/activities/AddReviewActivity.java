@@ -1,5 +1,6 @@
 package com.roninn_creations.theproject.activities;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -77,15 +78,20 @@ public class AddReviewActivity extends AppCompatActivity {
         Review review = new Review(
                 null,
                 getUser(),
-                place,
+                place.getId(),
                 rating,
                 commentEditor.getText().toString(),
                 null);
 
-        getReviewsService().create(review, this::onCreateResponse, TAG);
+        getReviewsService().create(review,
+                this::onCreateResponse, this::onErrorResponse, TAG);
     }
 
     private void onCreateResponse(Review review) {
         finish();
+    }
+
+    private void onErrorResponse(String message){
+        Snackbar.make(saveButton, message, Snackbar.LENGTH_LONG).show();
     }
 }

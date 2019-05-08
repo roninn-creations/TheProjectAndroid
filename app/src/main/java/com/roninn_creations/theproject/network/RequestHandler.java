@@ -30,22 +30,18 @@ public class RequestHandler{
         this.requestQueue = requestQueue;
     }
 
-    public void get(String path, Consumer<JSONObject> onResponse, String tag){
+    public void get(String path, Consumer<JSONObject> onResponse, Consumer<VolleyError> onError, String tag){
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url + path, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response){
+                (JSONObject response) -> {
+                    if (onResponse != null)
                         onResponse.accept(response);
-                    }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(tag, "WARNING: Error response!", error);
-                    }
+                (VolleyError error) -> {
+                    if (onError != null)
+                        onError.accept(error);
                 })
         {@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
+        public Map<String, String> getHeaders(){
             Map<String, String> headers = new HashMap<>();
             headers.put("Authorization", "Bearer " + token);
             return headers;}
@@ -54,22 +50,18 @@ public class RequestHandler{
         requestQueue.add(request);
     }
 
-    public void post(String path, JSONObject body, Consumer<JSONObject> onResponse, String tag){
+    public void post(String path, JSONObject body, Consumer<JSONObject> onResponse, Consumer<VolleyError> onError, String tag){
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url + path, body,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response){
+                (JSONObject response) -> {
+                    if (onResponse != null)
                         onResponse.accept(response);
-                    }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(tag, "WARNING: Error response!", error);
-                    }
+                (VolleyError error) -> {
+                    if (onError != null)
+                        onError.accept(error);
                 })
         {@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
+        public Map<String, String> getHeaders(){
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
             headers.put("Authorization", "Bearer " + token);
@@ -79,22 +71,18 @@ public class RequestHandler{
         requestQueue.add(request);
     }
 
-    public void put(String path, JSONObject body, Consumer<JSONObject> onResponse, String tag){
+    public void put(String path, JSONObject body, Consumer<JSONObject> onResponse, Consumer<VolleyError> onError, String tag){
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url + path, body,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response){
+                (JSONObject response) -> {
+                    if (onResponse != null)
                         onResponse.accept(response);
-                    }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(tag, "WARNING: Error response!", error);
-                    }
+                (VolleyError error) -> {
+                    if (onError != null)
+                        onError.accept(error);
                 })
         {@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
+        public Map<String, String> getHeaders(){
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
             headers.put("Authorization", "Bearer " + token);
@@ -104,22 +92,18 @@ public class RequestHandler{
         requestQueue.add(request);
     }
 
-    public void delete(String path, Consumer<JSONObject> onResponse, String tag){
+    public void delete(String path, Consumer<JSONObject> onResponse, Consumer<VolleyError> onError, String tag){
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url + path, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response){
+                (JSONObject response) -> {
+                    if (onResponse != null)
                         onResponse.accept(response);
-                    }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(tag, "WARNING: Error response!", error);
-                    }
+                (VolleyError error) -> {
+                    if (onError != null)
+                        onError.accept(error);
                 })
         {@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
+        public Map<String, String> getHeaders(){
             Map<String, String> headers = new HashMap<>();
             headers.put("Authorization", "Bearer " + token);
             return headers;}
@@ -128,22 +112,18 @@ public class RequestHandler{
         requestQueue.add(request);
     }
 
-    public void getString(String path, Consumer<String> onResponse, String tag){
+    public void getString(String path, Consumer<String> onResponse, Consumer<VolleyError> onError, String tag){
         StringRequest request = new StringRequest(Request.Method.GET, url + path,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response){
+                (String response) -> {
+                    if (onResponse != null)
                         onResponse.accept(response);
-                    }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(tag, "WARNING: Error response!", error);
-                    }
+                (VolleyError error) -> {
+                    if (onError != null)
+                        onError.accept(error);
                 })
         {@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
+        public Map<String, String> getHeaders(){
             Map<String, String> headers = new HashMap<>();
             headers.put("Authorization", "Bearer " + token);
             return headers;}
@@ -152,22 +132,18 @@ public class RequestHandler{
         requestQueue.add(request);
     }
 
-    public void getArray(String path, Consumer<JSONArray> onResponse, String tag){
+    public void getArray(String path, Consumer<JSONArray> onResponse, Consumer<VolleyError> onError, String tag){
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url + path, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response){
+                (JSONArray response) -> {
+                    if (onResponse != null)
                         onResponse.accept(response);
-                    }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(tag, "WARNING: Error response!", error);
-                    }
+                (VolleyError error) -> {
+                    if (onError != null)
+                        onError.accept(error);
                 })
         {@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
+        public Map<String, String> getHeaders(){
             Map<String, String> headers = new HashMap<>();
             headers.put("Authorization", "Bearer " + token);
             return headers;}

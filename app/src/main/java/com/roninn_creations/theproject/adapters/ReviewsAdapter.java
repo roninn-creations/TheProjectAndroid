@@ -31,7 +31,6 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         TextView ratingText = convertView.findViewById(R.id.rating_text);
         TextView commentText = convertView.findViewById(R.id.comment_text);
         if (review != null){
-//            userText.setText(review.getUser().getName());
             userText.setText(review.getUser().getName());
             ratingText.setText(Integer.toString(review.getRating()));
             commentText.setText(review.getComment());

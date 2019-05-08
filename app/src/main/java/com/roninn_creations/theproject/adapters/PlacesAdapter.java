@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.roninn_creations.theproject.R;
 import com.roninn_creations.theproject.models.Place;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PlacesAdapter extends ArrayAdapter<Place> {
@@ -29,11 +30,11 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
         }
         TextView nameText = convertView.findViewById(R.id.text_name);
         TextView addressText = convertView.findViewById(R.id.text_address);
-        TextView categoryText = convertView.findViewById(R.id.text_category);
+        TextView tagsText = convertView.findViewById(R.id.text_tags);
         if (place != null){
             nameText.setText(place.getName());
-            addressText.setText(place.getAddress());
-            categoryText.setText(place.getCategory());
+            addressText.setText(place.getAddress().toString());
+            tagsText.setText(Arrays.toString(place.getTags()));
         }
         return convertView;
     }

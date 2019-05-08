@@ -9,7 +9,7 @@ abstract class Service {
     final Gson gson;
     final RequestHandler requestHandler;
 
-    protected Service(String path, Gson gson, RequestHandler requestHandler) {
+    Service(String path, Gson gson, RequestHandler requestHandler) {
         this.path = path;
         this.gson = gson;
         this.requestHandler = requestHandler;

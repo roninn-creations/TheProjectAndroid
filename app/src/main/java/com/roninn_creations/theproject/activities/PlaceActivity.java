@@ -3,6 +3,7 @@ package com.roninn_creations.theproject.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
@@ -15,6 +16,7 @@ import com.roninn_creations.theproject.models.Place;
 import com.roninn_creations.theproject.models.Review;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.roninn_creations.theproject.TheProjectApplication.getGson;
@@ -32,7 +34,7 @@ public class PlaceActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private TextView nameText;
-    private TextView categoryText;
+    private TextView tagsText;
     private TextView addressText;
     private ListView reviewsList;
 
@@ -47,7 +49,7 @@ public class PlaceActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progress_bar);
         nameText = findViewById(R.id.text_name);
-        categoryText = findViewById(R.id.text_category);
+        tagsText = findViewById(R.id.text_tags);
         addressText = findViewById(R.id.text_address);
         reviewsList = findViewById(R.id.reviews_list);
         reviewsList.setAdapter(reviewsAdapter);
@@ -62,12 +64,13 @@ public class PlaceActivity extends AppCompatActivity {
         super.onStart();
 
         nameText.setText(place.getName());
-        categoryText.setText(place.getCategory());
-        addressText.setText(place.getAddress());
+        tagsText.setText(Arrays.toString(place.getTags()));
+        addressText.setText(place.getAddress().toString());
         progressBar.setVisibility(View.VISIBLE);
         reviewsList.setVisibility(View.GONE);
 
-        getReviewsService().readAll(this::onGetReviewsResponse, TAG);
+        getReviewsService().readMany("?place=" + place.getId(),
+                this::onGetReviewsResponse, this::onErrorResponse, TAG);
     }
 
     @Override
@@ -89,5 +92,11 @@ public class PlaceActivity extends AppCompatActivity {
         reviewsAdapter.notifyDataSetChanged();
         progressBar.setVisibility(View.GONE);
         reviewsList.setVisibility(View.VISIBLE);
+    }
+
+    private void onErrorResponse(String message){
+        progressBar.setVisibility(View.GONE);
+        reviewsList.setVisibility(View.VISIBLE);
+        Snackbar.make(reviewsList, message, Snackbar.LENGTH_LONG).show();
     }
 }

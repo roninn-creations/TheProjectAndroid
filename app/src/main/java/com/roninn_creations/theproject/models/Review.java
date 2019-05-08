@@ -6,12 +6,12 @@ public class Review {
 
     private String id;
     private User user;
-    private Place place;
+    private String place;
     private int rating;
     private String comment;
     private Date createdAt;
 
-    public Review(String id, User user, Place place, int rating, String comment, Date createdAt) {
+    public Review(String id, User user, String place, int rating, String comment, Date createdAt) {
         this.id = id;
         this.user = user;
         this.place = place;
@@ -36,11 +36,11 @@ public class Review {
         this.user = user;
     }
 
-    public Place getPlace() {
+    public String getPlace() {
         return place;
     }
 
-    public void setPlace(Place place) {
+    public void setPlace(String place) {
         this.place = place;
     }
 

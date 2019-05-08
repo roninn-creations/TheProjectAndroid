@@ -2,35 +2,27 @@ package com.roninn_creations.theproject.models;
 
 public class Place {
 
-    public enum Category{
-        NA("N/A"),
-        BAR("Bar"),
-        CAFE("Cafe"),
-        HOTEL("Hotel"),
-        RESTAURANT("Restaurant");
-
-        private final String name;
-
-        Category(String name){
-            this.name = name;
-        }
+    public class  Address {
+        public String street;
+        public String post;
+        public String city;
 
         @Override
         public String toString() {
-            return name;
+            return String.format("%s, %s, %s", street, post, city);
         }
     }
 
     private String id;
     private String name;
-    private String address;
-    private String category;
+    private Address address;
+    private String[] tags;
 
-    public Place(String id, String name, String address, String category) {
+    public Place(String id, String name, Address address, String[] tags) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.category = category;
+        this.tags = tags;
     }
 
     public String getId() {
@@ -49,19 +41,19 @@ public class Place {
         this.name = name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
-    public String getCategory() {
-        return category;
+    public String[] getTags() {
+        return tags;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 }

@@ -3,6 +3,7 @@ package com.roninn_creations.theproject.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +21,7 @@ import static com.roninn_creations.theproject.TheProjectApplication.getGson;
 import static com.roninn_creations.theproject.TheProjectApplication.getPlacesService;
 import static com.roninn_creations.theproject.TheProjectApplication.getRequestHandler;
 
-public class PlacesActivity extends AppCompatActivity {
+public class PlacesActivity extends AppCompatActivity{
 
     private static final String TAG = PlacesActivity.class.getName();
 
@@ -31,7 +32,7 @@ public class PlacesActivity extends AppCompatActivity {
     private ListView placesList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_places);
 
@@ -53,7 +54,8 @@ public class PlacesActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         placesList.setVisibility(View.GONE);
 
-        getPlacesService().readAll(this::onGetPlacesResponse, TAG);
+        getPlacesService().readMany("",
+                this::onGetPlacesResponse, this::onErrorResponse, TAG);
     }
 
     @Override
@@ -80,5 +82,11 @@ public class PlacesActivity extends AppCompatActivity {
         placesAdapter.notifyDataSetChanged();
         progressBar.setVisibility(View.GONE);
         placesList.setVisibility(View.VISIBLE);
+    }
+
+    private void onErrorResponse(String message){
+        progressBar.setVisibility(View.GONE);
+        placesList.setVisibility(View.VISIBLE);
+        Snackbar.make(placesList, message, Snackbar.LENGTH_LONG).show();
     }
 }
