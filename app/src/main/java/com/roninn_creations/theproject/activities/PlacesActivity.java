@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -13,6 +15,7 @@ import android.widget.ProgressBar;
 import com.roninn_creations.theproject.R;
 import com.roninn_creations.theproject.adapters.PlacesAdapter;
 import com.roninn_creations.theproject.models.Place;
+import com.roninn_creations.theproject.views.NonScrollListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +31,9 @@ public class PlacesActivity extends AppCompatActivity{
     private List<Place> places;
     private PlacesAdapter placesAdapter;
 
+    private SearchView searchView;
     private ProgressBar progressBar;
-    private ListView placesList;
+    private NonScrollListView placesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -39,12 +43,15 @@ public class PlacesActivity extends AppCompatActivity{
         places = new ArrayList<>();
         placesAdapter = new PlacesAdapter(this, places);
 
+        searchView = findViewById(R.id.search);
         progressBar = findViewById(R.id.progress_bar);
         placesList = findViewById(R.id.list_places);
         placesList.setAdapter(placesAdapter);
         placesList.setOnItemClickListener(this::onPlacesItemClick);
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(this::onAddButtonClick);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -56,6 +63,13 @@ public class PlacesActivity extends AppCompatActivity{
 
         getPlacesService().readMany("",
                 this::onGetPlacesResponse, this::onErrorResponse, TAG);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        searchView.setQuery("", false);
     }
 
     @Override

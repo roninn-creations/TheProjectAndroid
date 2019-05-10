@@ -1,7 +1,14 @@
 <resources>
-    <dimen name="textsize_medium">12sp</dimen>
-    <dimen name="textsize_big">18sp</dimen>
-    <dimen name="padding_layout">10dp</dimen>
+    <dimen name="textsize_tiny">12sp</dimen>
+    <dimen name="textsize_small">14sp</dimen>
+    <dimen name="textsize_medium">18sp</dimen>
+    <dimen name="textsize_big">24sp</dimen>
+    <dimen name="textsize_large">30sp</dimen>
+    <dimen name="padding">8dp</dimen>
+    <dimen name="padding_double">16dp</dimen>
+    <dimen name="padding_triple">24dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="margin_double">16dp</dimen>
+    <dimen name="margin_triple">24dp</dimen>
     <dimen name="height_app_bar">180dp</dimen>
-    <dimen name="margin_fab">20dp</dimen>
 </resources>

@@ -9,7 +9,7 @@ public class Place {
 
         @Override
         public String toString() {
-            return String.format("%s, %s, %s", street, post, city);
+            return String.format("%s\n%s, %s", street, post, city);
         }
     }
 

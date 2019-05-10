@@ -55,8 +55,6 @@ public class PlaceActivity extends AppCompatActivity {
         reviewsList.setAdapter(reviewsAdapter);
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(this::onAddButtonClick);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

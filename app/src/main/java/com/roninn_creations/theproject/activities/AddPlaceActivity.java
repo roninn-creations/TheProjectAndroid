@@ -19,12 +19,7 @@ public class AddPlaceActivity extends AppCompatActivity {
     private static final String TAG = AddPlaceActivity.class.getName();
 
     private EditText nameEditor;
-    private EditText addressEditor;
-    private RadioGroup categoryGroup;
-    private RadioButton barRadio;
-    private RadioButton cafeRadio;
-    private RadioButton hotelRadio;
-    private RadioButton restaurantRadio;
+//    private EditText addressEditor;
     private Button saveButton;
 
     @Override
@@ -33,12 +28,7 @@ public class AddPlaceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_place);
 
         nameEditor = findViewById(R.id.edit_name);
-        addressEditor = findViewById(R.id.edit_address);
-        categoryGroup = findViewById(R.id.radio_group_category);
-        barRadio = findViewById(R.id.radio_bar);
-        cafeRadio = findViewById(R.id.radio_cafe);
-        hotelRadio = findViewById(R.id.radio_hotel);
-        restaurantRadio = findViewById(R.id.radio_restaurant);
+//        addressEditor = findViewById(R.id.edit_address);
         saveButton = findViewById(R.id.button_save);
         saveButton.setOnClickListener(this::onSaveButtonClick);
     }
