@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rating"/>
+            android:text="@string/rating_label"/>
 
         <RadioGroup
             android:id="@+id/radio_group_rating"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:labelFor="@id/edit_comment"
-            android:text="@string/comment"/>
+            android:text="@string/comment_label"/>
 
         <EditText
             android:id="@+id/edit_comment"

@@ -38,22 +38,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:labelFor="@id/edit_name"
-                android:text="@string/place_name"/>
+                android:text="@string/place_name_label"/>
 
             <EditText
                 android:id="@+id/edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:autofillHints="@string/place_name_hint"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:labelFor="@id/edit_street"
-                android:text="@string/street_address"/>
+                android:text="@string/street_address_label"/>
 
             <EditText
                 android:id="@+id/edit_street"
@@ -65,8 +66,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:labelFor="@id/edit_post"
-                android:text="@string/postal_code"/>
+                android:text="@string/postal_code_label"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,15 +86,16 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="2"/>
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:labelFor="@id/edit_city"
-                android:text="@string/city"/>
+                android:text="@string/city_label"/>
 
             <EditText
                 android:id="@+id/edit_city"
@@ -104,8 +107,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:labelFor="@id/edit_tags"
-                android:text="@string/tags"/>
+                android:text="@string/tags_label"/>
 
             <EditText
                 android:id="@+id/edit_tags"
