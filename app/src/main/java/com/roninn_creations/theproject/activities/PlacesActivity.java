@@ -7,9 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.roninn_creations.theproject.R;
@@ -51,16 +49,14 @@ public class PlacesActivity extends AppCompatActivity{
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(this::onAddButtonClick);
 
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-
         progressBar.setVisibility(View.VISIBLE);
         placesList.setVisibility(View.GONE);
-
         getPlacesService().readMany("",
                 this::onGetPlacesResponse, this::onErrorResponse, TAG);
     }
@@ -68,14 +64,12 @@ public class PlacesActivity extends AppCompatActivity{
     @Override
     protected void onResume(){
         super.onResume();
-
         searchView.setQuery("", false);
     }
 
     @Override
     public void onStop(){
         super.onStop();
-
         getRequestHandler().cancelRequests(TAG);
     }
 

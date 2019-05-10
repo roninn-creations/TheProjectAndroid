@@ -22,6 +22,11 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +51,7 @@
                 android:id="@+id/edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
+                android:inputType="textAutoComplete"
                 android:autofillHints="@string/place_name_hint"/>
 
             <TextView
@@ -60,7 +65,7 @@
                 android:id="@+id/edit_street"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
+                android:inputType="textAutoComplete"
                 android:autofillHints="@string/street_address_hint"/>
 
             <TextView
@@ -80,7 +85,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:autofillHints="@string/postal_code_hint"/>
 
                 <View
@@ -101,7 +106,7 @@
                 android:id="@+id/edit_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textAutoComplete"
                 android:autofillHints="@string/city_hint"/>
 
             <TextView
@@ -115,7 +120,8 @@
                 android:id="@+id/edit_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
+                android:inputType="textAutoComplete"
+                android:imeOptions="actionSend"
                 android:autofillHints="@string/tags_hint"/>
 
         </GridLayout>

@@ -16,7 +16,8 @@
 
         <activity
             android:name=".activities.PlacesActivity"
-            android:label="@string/title_activity_places">
+            android:label="@string/title_activity_places"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,27 +28,20 @@
             android:name=".activities.PlaceActivity"
             android:label="@string/title_activity_place"
             android:parentActivityName=".activities.PlacesActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.roninn_creations.theproject.activities.PlacesActivity" />
         </activity>
 
         <activity
             android:name=".activities.AddPlaceActivity"
             android:label="@string/title_activity_add_place"
-            android:parentActivityName=".activities.PlacesActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.roninn_creations.theproject.activities.PlacesActivity" />
+            android:parentActivityName=".activities.PlacesActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
 
         <activity
             android:name=".activities.AddReviewActivity"
             android:label="@string/title_activity_add_review"
-            android:parentActivityName=".activities.PlaceActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.roninn_creations.theproject.activities.PlaceActivity" />
+            android:parentActivityName=".activities.PlaceActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

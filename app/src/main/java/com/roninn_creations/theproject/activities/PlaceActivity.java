@@ -60,13 +60,11 @@ public class PlaceActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-
         nameText.setText(place.getName());
         tagsText.setText(Arrays.toString(place.getTags()));
         addressText.setText(place.getAddress().toString());
         progressBar.setVisibility(View.VISIBLE);
         reviewsList.setVisibility(View.GONE);
-
         getReviewsService().readMany("?place=" + place.getId(),
                 this::onGetReviewsResponse, this::onErrorResponse, TAG);
     }
@@ -74,7 +72,6 @@ public class PlaceActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-
         getRequestHandler().cancelRequests(TAG);
     }
 
