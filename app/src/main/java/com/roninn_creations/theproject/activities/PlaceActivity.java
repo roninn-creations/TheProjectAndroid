@@ -64,7 +64,6 @@ public class PlaceActivity extends AppCompatActivity {
         tagsText.setText(Arrays.toString(place.getTags()));
         addressText.setText(place.getAddress().toString());
         progressBar.setVisibility(View.VISIBLE);
-        reviewsList.setVisibility(View.GONE);
         getReviewsService().readMany("?place=" + place.getId(),
                 this::onGetReviewsResponse, this::onErrorResponse, TAG);
     }
@@ -86,12 +85,10 @@ public class PlaceActivity extends AppCompatActivity {
         this.reviews.addAll(reviews);
         reviewsAdapter.notifyDataSetChanged();
         progressBar.setVisibility(View.GONE);
-        reviewsList.setVisibility(View.VISIBLE);
     }
 
     private void onErrorResponse(String message){
         progressBar.setVisibility(View.GONE);
-        reviewsList.setVisibility(View.VISIBLE);
         Snackbar.make(reviewsList, message, Snackbar.LENGTH_LONG).show();
     }
 }

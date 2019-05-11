@@ -1,5 +1,6 @@
 package com.roninn_creations.theproject.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.roninn_creations.theproject.R;
@@ -41,30 +43,32 @@ public class PlacesActivity extends AppCompatActivity{
         places = new ArrayList<>();
         placesAdapter = new PlacesAdapter(this, places);
 
+        PlacesActivity activity = this;
+
         searchView = findViewById(R.id.search);
+        searchView.setOnQueryTextListener(new OnQueryTextListener());
+        ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
+        closeButton.setOnClickListener(this::onSearchCloseButtonClick);
         progressBar = findViewById(R.id.progress_bar);
         placesList = findViewById(R.id.list_places);
         placesList.setAdapter(placesAdapter);
         placesList.setOnItemClickListener(this::onPlacesItemClick);
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(this::onAddButtonClick);
-
-        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
     protected void onStart(){
         super.onStart();
         progressBar.setVisibility(View.VISIBLE);
-        placesList.setVisibility(View.GONE);
-        getPlacesService().readMany("",
+        getPlacesService().readMany("?q=" + searchView.getQuery().toString(),
                 this::onGetPlacesResponse, this::onErrorResponse, TAG);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        searchView.setQuery("", false);
+        searchView.setQuery(searchView.getQuery(), true);
     }
 
     @Override
@@ -73,7 +77,7 @@ public class PlacesActivity extends AppCompatActivity{
         getRequestHandler().cancelRequests(TAG);
     }
 
-    public void onPlacesItemClick(AdapterView<?> parent, View view, int position, long id) {
+    private void onPlacesItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent placeIntent = new Intent(this, PlaceActivity.class);
         placeIntent.putExtra(PlaceActivity.EXTRA_KEY_PLACE, getGson().toJson(places.get(position)));
         startActivity(placeIntent);
@@ -89,12 +93,32 @@ public class PlacesActivity extends AppCompatActivity{
         this.places.addAll(places);
         placesAdapter.notifyDataSetChanged();
         progressBar.setVisibility(View.GONE);
-        placesList.setVisibility(View.VISIBLE);
     }
 
     private void onErrorResponse(String message){
         progressBar.setVisibility(View.GONE);
-        placesList.setVisibility(View.VISIBLE);
         Snackbar.make(placesList, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    private void onSearchCloseButtonClick(View view){
+        searchView.setQuery("", false);
+        getPlacesService().readMany("",
+                this::onGetPlacesResponse, this::onErrorResponse, TAG);
+        searchView.clearFocus();
+    }
+
+    private class OnQueryTextListener implements SearchView.OnQueryTextListener {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            getPlacesService().readMany("?q=" + query.trim(),
+                    PlacesActivity.this::onGetPlacesResponse, PlacesActivity.this::onErrorResponse, TAG);
+            searchView.clearFocus();
+            return true;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String query) {
+            return true;
+        }
     }
 }

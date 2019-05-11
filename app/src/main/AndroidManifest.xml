@@ -13,36 +13,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
+        <activity android:name=".activities.RegisterActivity"></activity>
+        <activity android:name=".activities.LoginActivity" />
         <activity
             android:name=".activities.PlacesActivity"
             android:label="@string/title_activity_places"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.PlaceActivity"
             android:label="@string/title_activity_place"
-            android:parentActivityName=".activities.PlacesActivity">
-        </activity>
-
+            android:parentActivityName=".activities.PlacesActivity" />
         <activity
             android:name=".activities.AddPlaceActivity"
             android:label="@string/title_activity_add_place"
             android:parentActivityName=".activities.PlacesActivity"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.AddReviewActivity"
             android:label="@string/title_activity_add_review"
             android:parentActivityName=".activities.PlaceActivity"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
