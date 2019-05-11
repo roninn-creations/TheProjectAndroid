@@ -14,7 +14,7 @@
         android:padding="@dimen/padding">
 
         <TextView
-            android:id="@+id/text_name"
+            android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textsize_big"
@@ -27,116 +27,97 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/padding">
+        android:columnCount="2"
+        android:rowCount="7"
+        android:orientation="horizontal">
 
-        <GridLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:labelFor="@id/edit_name"
+            android:text="@string/place_name_label"/>
+
+        <EditText
+            android:id="@+id/edit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="5"
-            android:orientation="horizontal">
+            android:inputType="textAutoComplete"
+            android:autofillHints="@string/place_name_hint"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:labelFor="@id/edit_name"
-                android:text="@string/place_name_label"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:labelFor="@id/edit_street"
+            android:text="@string/street_address_label"/>
 
-            <EditText
-                android:id="@+id/edit_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete"
-                android:autofillHints="@string/place_name_hint"/>
+        <EditText
+            android:id="@+id/edit_street"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:autofillHints="@string/street_address_hint"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:labelFor="@id/edit_street"
-                android:text="@string/street_address_label"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:labelFor="@id/edit_post"
+            android:text="@string/postal_code_label"/>
 
-            <EditText
-                android:id="@+id/edit_street"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete"
-                android:autofillHints="@string/street_address_hint"/>
+        <EditText
+            android:id="@+id/edit_post"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:autofillHints="@string/postal_code_hint"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:labelFor="@id/edit_post"
-                android:text="@string/postal_code_label"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:labelFor="@id/edit_city"
+            android:text="@string/city_label"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edit_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:autofillHints="@string/city_hint"/>
 
-                <EditText
-                    android:id="@+id/edit_post"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="number"
-                    android:autofillHints="@string/postal_code_hint"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:labelFor="@id/edit_tags"
+            android:text="@string/tags_label"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:labelFor="@id/edit_city"
-                android:text="@string/city_label"/>
-
-            <EditText
-                android:id="@+id/edit_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete"
-                android:autofillHints="@string/city_hint"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:labelFor="@id/edit_tags"
-                android:text="@string/tags_label"/>
-
-            <EditText
-                android:id="@+id/edit_tags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete"
-                android:imeOptions="actionSend"
-                android:autofillHints="@string/tags_hint"/>
-
-        </GridLayout>
+        <EditText
+            android:id="@+id/edit_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:imeOptions="actionSend"
+            android:autofillHints="@string/tags_hint"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_rowWeight="1"
+            android:layout_columnSpan="2"/>
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
             android:text="@string/save"/>
 
-    </LinearLayout>
+    </GridLayout>
 
 </LinearLayout>

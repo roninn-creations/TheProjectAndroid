@@ -48,7 +48,7 @@ public class PlaceActivity extends AppCompatActivity {
         reviewsAdapter = new ReviewsAdapter(this, reviews);
 
         progressBar = findViewById(R.id.progress_bar);
-        nameText = findViewById(R.id.text_name);
+        nameText = findViewById(R.id.text_title);
         tagsText = findViewById(R.id.text_tags);
         addressText = findViewById(R.id.text_address);
         reviewsList = findViewById(R.id.reviews_list);

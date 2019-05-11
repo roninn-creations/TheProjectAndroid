@@ -14,6 +14,8 @@
 
     <!-- Layout strings -->
     <string name="app_name">TheProject</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
     <string name="title_activity_places">Places</string>
     <string name="title_activity_place">Place</string>
     <string name="title_activity_add_place">Add Place</string>

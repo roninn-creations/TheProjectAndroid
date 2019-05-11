@@ -28,7 +28,7 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item_place, parent, false);
         }
-        TextView nameText = convertView.findViewById(R.id.text_name);
+        TextView nameText = convertView.findViewById(R.id.text_title);
         TextView addressText = convertView.findViewById(R.id.text_address);
         TextView tagsText = convertView.findViewById(R.id.text_tags);
         if (place != null){
