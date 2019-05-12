@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.roninn_creations.theproject.models.Place;
 import com.roninn_creations.theproject.models.Review;
 import com.roninn_creations.theproject.models.User;
+import com.roninn_creations.theproject.services.AuthService;
 import com.roninn_creations.theproject.services.IService;
 import com.roninn_creations.theproject.services.PlacesService;
 import com.roninn_creations.theproject.network.RequestHandler;
@@ -21,6 +22,7 @@ public class TheProjectApplication extends Application {
     private static IService<Place> placesService;
     private static IService<Review> reviewsService;
     private static IService<User> usersService;
+    private static AuthService authService;
     private static User user;
 
     @Override
@@ -31,13 +33,13 @@ public class TheProjectApplication extends Application {
         gsonBuilder.setDateFormat(getString(R.string.date_format)).create();
         gson = gsonBuilder.create();
         Volley volley = new Volley(this);
-        requestHandler = new RequestHandler(getString(R.string.base_url), getString(R.string.test_token), volley.getRequestQueue());
+        requestHandler = new RequestHandler(getString(R.string.base_url),
+                volley.getRequestQueue(),
+                null);
         placesService = new PlacesService(getString(R.string.places_path), gson, requestHandler);
         reviewsService = new ReviewsService(getString(R.string.reviews_path), gson, requestHandler);
         usersService = new UsersService(getString(R.string.users_path), gson, requestHandler);
-        user = new User(getString(R.string.admin_id),
-                getString(R.string.admin_name),
-                getString(R.string.admin_picture));
+        authService = new AuthService(getString(R.string.auth_path), gson, requestHandler);
     }
 
     public static Gson getGson(){
@@ -58,6 +60,10 @@ public class TheProjectApplication extends Application {
 
     public static IService<User> getUsersService(){
         return usersService;
+    }
+
+    public static AuthService getAuthService(){
+        return authService;
     }
 
     public static User getUser(){

@@ -22,7 +22,8 @@ public class PlacesService extends Service implements IService<Place> {
         super(path, gson, requestHandler);
     }
 
-    public void create(Place place, Consumer<Place> onResponse, Consumer<String> onError, String tag){
+    public void create(Place place, Consumer<Place> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 Place returnedPlace = gson.fromJson(response.toString(), Place.class);
@@ -50,7 +51,8 @@ public class PlacesService extends Service implements IService<Place> {
         }
     }
 
-    public void readMany(String params, Consumer<List<Place>> onResponse, Consumer<String> onError, String tag){
+    public void readMany(String params, Consumer<List<Place>> onResponse,
+                         Consumer<String> onError, String tag){
         Consumer<JSONArray> responseConsumer = (JSONArray response) -> {
             if (onResponse != null){
                 try {
@@ -78,7 +80,8 @@ public class PlacesService extends Service implements IService<Place> {
         requestHandler.getArray(path + params, responseConsumer, errorConsumer, tag);
     }
 
-    public void read(String id, Consumer<Place> onResponse, Consumer<String> onError, String tag){
+    public void read(String id, Consumer<Place> onResponse,
+                     Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 Place place = gson.fromJson(response.toString(), Place.class);
@@ -99,7 +102,8 @@ public class PlacesService extends Service implements IService<Place> {
         requestHandler.get(path + id, responseConsumer, errorConsumer, tag);
     }
 
-    public void update(Place place, Consumer<Place> onResponse, Consumer<String> onError, String tag){
+    public void update(Place place, Consumer<Place> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
                 if (onResponse != null){
                     Place returnedPlace = gson.fromJson(response.toString(), Place.class);
@@ -112,7 +116,7 @@ public class PlacesService extends Service implements IService<Place> {
                     JSONObject responseBody = new JSONObject(
                             new String(error.networkResponse.data, StandardCharsets.UTF_8));
                     onError.accept(responseBody.getString("message"));
-                } catch (Exception exception) {
+                } catch (Exception exception){
                     onError.accept("Connection error");
                 }
             }
@@ -127,7 +131,8 @@ public class PlacesService extends Service implements IService<Place> {
         }
     }
 
-    public void delete(String id, Consumer<Place> onResponse, Consumer<String> onError, String tag){
+    public void delete(String id, Consumer<Place> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 Place place = gson.fromJson(response.toString(), Place.class);
@@ -140,7 +145,7 @@ public class PlacesService extends Service implements IService<Place> {
                     JSONObject responseBody = new JSONObject(
                             new String(error.networkResponse.data, StandardCharsets.UTF_8));
                     onError.accept(responseBody.getString("message"));
-                } catch (Exception exception) {
+                } catch (Exception exception){
                     onError.accept("Connection error");
                 }
             }

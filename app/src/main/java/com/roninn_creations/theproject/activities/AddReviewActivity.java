@@ -55,7 +55,7 @@ public class AddReviewActivity extends AppCompatActivity {
         commentEdit = findViewById(R.id.edit_comment);
         saveButton = findViewById(R.id.button_save);
 
-        commentEdit.setOnEditorActionListener(this::onEditorSend);
+        commentEdit.setOnEditorActionListener(this::onCommentEditorSend);
         saveButton.setOnClickListener(this::onSaveButtonClick);
     }
 
@@ -69,7 +69,7 @@ public class AddReviewActivity extends AppCompatActivity {
         submitReview();
     }
 
-    private boolean onEditorSend(TextView view, int actionId, KeyEvent event){
+    private boolean onCommentEditorSend(TextView view, int actionId, KeyEvent event){
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_SEND) {
             submitReview();

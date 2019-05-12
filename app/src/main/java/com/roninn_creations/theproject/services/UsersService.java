@@ -22,7 +22,8 @@ public class UsersService extends Service implements IService<User> {
         super(path, gson, requestHandler);
     }
 
-    public void create(User user, Consumer<User> onResponse, Consumer<String> onError, String tag){
+    public void create(User user, Consumer<User> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 User returnedUser = gson.fromJson(response.toString(), User.class);
@@ -49,7 +50,8 @@ public class UsersService extends Service implements IService<User> {
         }
     }
 
-    public void readMany(String params, Consumer<List<User>> onResponse, Consumer<String> onError, String tag){
+    public void readMany(String params, Consumer<List<User>> onResponse,
+                         Consumer<String> onError, String tag){
         Consumer<JSONArray> responseConsumer = (JSONArray response) -> {
             if (onResponse != null){
                 try {
@@ -77,7 +79,8 @@ public class UsersService extends Service implements IService<User> {
         requestHandler.getArray(path + params, responseConsumer, errorConsumer, tag);
     }
 
-    public void read(String id, Consumer<User> onResponse, Consumer<String> onError, String tag){
+    public void read(String id, Consumer<User> onResponse,
+                     Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
                 if (onResponse != null){
                     User user = gson.fromJson(response.toString(), User.class);
@@ -98,7 +101,8 @@ public class UsersService extends Service implements IService<User> {
         requestHandler.get(path + id, responseConsumer, errorConsumer, tag);
     }
 
-    public void update(User user, Consumer<User> onResponse, Consumer<String> onError, String tag){
+    public void update(User user, Consumer<User> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 User returnedUser = gson.fromJson(response.toString(), User.class);
@@ -125,7 +129,8 @@ public class UsersService extends Service implements IService<User> {
         }
     }
 
-    public void delete(String id, Consumer<User> onResponse, Consumer<String> onError, String tag){
+    public void delete(String id, Consumer<User> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 User user = gson.fromJson(response.toString(), User.class);

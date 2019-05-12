@@ -44,7 +44,7 @@ public class AddPlaceActivity extends AppCompatActivity {
         tagsEdit = findViewById(R.id.edit_tags);
         saveButton = findViewById(R.id.button_save);
 
-        tagsEdit.setOnEditorActionListener(this::onEditorSend);
+        tagsEdit.setOnEditorActionListener(this::onTagsEditorSend);
         saveButton.setOnClickListener(this::onSaveButtonClick);
     }
 
@@ -58,7 +58,7 @@ public class AddPlaceActivity extends AppCompatActivity {
         submitPlace();
     }
 
-    private boolean onEditorSend(TextView view, int actionId, KeyEvent event){
+    private boolean onTagsEditorSend(TextView view, int actionId, KeyEvent event){
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_SEND) {
             submitPlace();

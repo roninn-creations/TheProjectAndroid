@@ -23,7 +23,8 @@ public class ReviewsService extends Service implements IService<Review> {
         super(path, gson, requestHandler);
     }
 
-    public void create(Review review, Consumer<Review> onResponse, Consumer<String> onError, String tag){
+    public void create(Review review, Consumer<Review> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 try {
@@ -59,7 +60,8 @@ public class ReviewsService extends Service implements IService<Review> {
         }
     }
 
-    public void readMany(String params, Consumer<List<Review>> onResponse, Consumer<String> onError, String tag){
+    public void readMany(String params, Consumer<List<Review>> onResponse,
+                         Consumer<String> onError, String tag){
         Consumer<JSONArray> responseConsumer = (JSONArray response) -> {
             if (onResponse != null){
                 try {
@@ -93,7 +95,8 @@ public class ReviewsService extends Service implements IService<Review> {
         requestHandler.getArray(path + params, responseConsumer, errorConsumer, tag);
     }
 
-    public void read(String id, Consumer<Review> onResponse, Consumer<String> onError, String tag){
+    public void read(String id, Consumer<Review> onResponse,
+                     Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 try {
@@ -122,7 +125,8 @@ public class ReviewsService extends Service implements IService<Review> {
         requestHandler.get(path + id, responseConsumer, errorConsumer, tag);
     }
 
-    public void update(Review review, Consumer<Review> onResponse, Consumer<String> onError, String tag){
+    public void update(Review review, Consumer<Review> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 try {
@@ -157,7 +161,8 @@ public class ReviewsService extends Service implements IService<Review> {
         }
     }
 
-    public void delete(String id, Consumer<Review> onResponse, Consumer<String> onError, String tag){
+    public void delete(String id, Consumer<Review> onResponse,
+                       Consumer<String> onError, String tag){
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
             if (onResponse != null){
                 try {
@@ -192,7 +197,7 @@ public class ReviewsService extends Service implements IService<Review> {
         private int rating;
         private String comment;
 
-        ReviewCreateModel(Review review){
+        private ReviewCreateModel(Review review){
             this.user = review.getUser().getId();
             this.place = review.getPlace();
             this.rating = review.getRating();

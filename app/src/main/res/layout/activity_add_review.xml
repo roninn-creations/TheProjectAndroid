@@ -85,7 +85,7 @@
             android:gravity="top|start"
             android:inputType="textImeMultiLine"
             android:imeOptions="actionSend"
-            android:hint="@string/tags"
+            android:hint="@string/comment"
             android:autofillHints="@string/comment"/>
 
         <Button
