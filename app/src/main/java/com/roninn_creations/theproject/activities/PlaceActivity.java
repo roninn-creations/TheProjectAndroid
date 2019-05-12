@@ -52,17 +52,18 @@ public class PlaceActivity extends AppCompatActivity {
         tagsText = findViewById(R.id.text_tags);
         addressText = findViewById(R.id.text_address);
         reviewsList = findViewById(R.id.reviews_list);
-        reviewsList.setAdapter(reviewsAdapter);
         FloatingActionButton fab = findViewById(R.id.fab_add);
+
+        nameText.setText(place.getName());
+        tagsText.setText(Arrays.toString(place.getTags()));
+        addressText.setText(place.getAddress().toString());
+        reviewsList.setAdapter(reviewsAdapter);
         fab.setOnClickListener(this::onAddButtonClick);
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-        nameText.setText(place.getName());
-        tagsText.setText(Arrays.toString(place.getTags()));
-        addressText.setText(place.getAddress().toString());
         progressBar.setVisibility(View.VISIBLE);
         getReviewsService().readMany("?place=" + place.getId(),
                 this::onGetReviewsResponse, this::onErrorResponse, TAG);

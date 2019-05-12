@@ -25,77 +25,45 @@
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnCount="2"
-        android:rowCount="7"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:labelFor="@id/edit_name"
-            android:text="@string/place_name_label"/>
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/edit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete"
-            android:autofillHints="@string/place_name_hint"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:labelFor="@id/edit_street"
-            android:text="@string/street_address_label"/>
+            android:hint="@string/place_name"
+            android:autofillHints="@string/place_name"/>
 
         <EditText
             android:id="@+id/edit_street"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete"
-            android:autofillHints="@string/street_address_hint"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:labelFor="@id/edit_post"
-            android:text="@string/postal_code_label"/>
+            android:hint="@string/street_address"
+            android:autofillHints="@string/street_address"/>
 
         <EditText
             android:id="@+id/edit_post"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:autofillHints="@string/postal_code_hint"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:labelFor="@id/edit_city"
-            android:text="@string/city_label"/>
+            android:inputType="number"
+            android:hint="@string/postal_code"
+            android:autofillHints="@string/postal_code"/>
 
         <EditText
             android:id="@+id/edit_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete"
-            android:autofillHints="@string/city_hint"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:labelFor="@id/edit_tags"
-            android:text="@string/tags_label"/>
+            android:hint="@string/city"
+            android:autofillHints="@string/city"/>
 
         <EditText
             android:id="@+id/edit_tags"
@@ -103,21 +71,20 @@
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete"
             android:imeOptions="actionSend"
-            android:autofillHints="@string/tags_hint"/>
+            android:hint="@string/tags"
+            android:autofillHints="@string/tags"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnSpan="2"/>
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_columnSpan="2"
             android:text="@string/save"/>
 
-    </GridLayout>
+    </LinearLayout>
 
 </LinearLayout>

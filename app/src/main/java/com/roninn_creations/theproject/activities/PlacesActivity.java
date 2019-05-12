@@ -1,6 +1,5 @@
 package com.roninn_creations.theproject.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,8 +30,8 @@ public class PlacesActivity extends AppCompatActivity{
     private List<Place> places;
     private PlacesAdapter placesAdapter;
 
-    private SearchView searchView;
     private ProgressBar progressBar;
+    private SearchView searchView;
     private NonScrollListView placesList;
 
     @Override
@@ -43,17 +42,16 @@ public class PlacesActivity extends AppCompatActivity{
         places = new ArrayList<>();
         placesAdapter = new PlacesAdapter(this, places);
 
-        PlacesActivity activity = this;
-
-        searchView = findViewById(R.id.search);
-        searchView.setOnQueryTextListener(new OnQueryTextListener());
-        ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
-        closeButton.setOnClickListener(this::onSearchCloseButtonClick);
         progressBar = findViewById(R.id.progress_bar);
+        searchView = findViewById(R.id.search);
+        ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
         placesList = findViewById(R.id.list_places);
+        FloatingActionButton fab = findViewById(R.id.fab_add);
+
+        searchView.setOnQueryTextListener(new OnQueryTextListener());
+        closeButton.setOnClickListener(this::onSearchCloseButtonClick);
         placesList.setAdapter(placesAdapter);
         placesList.setOnItemClickListener(this::onPlacesItemClick);
-        FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(this::onAddButtonClick);
     }
 

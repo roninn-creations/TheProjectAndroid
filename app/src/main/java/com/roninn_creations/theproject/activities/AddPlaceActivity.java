@@ -10,8 +10,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.roninn_creations.theproject.R;
@@ -25,12 +23,12 @@ public class AddPlaceActivity extends AppCompatActivity {
 
     private static final String TAG = AddPlaceActivity.class.getName();
 
-    private EditText nameEditor;
-    private EditText streetEditor;
-    private EditText postEditor;
-    private EditText cityEditor;
-    private EditText tagsEditor;
     private ProgressBar progressBar;
+    private EditText nameEdit;
+    private EditText streetEdit;
+    private EditText postEdit;
+    private EditText cityEdit;
+    private EditText tagsEdit;
     private Button saveButton;
 
     @Override
@@ -38,21 +36,16 @@ public class AddPlaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_place);
 
-        nameEditor = findViewById(R.id.edit_name);
-        streetEditor = findViewById(R.id.edit_street);
-        postEditor = findViewById(R.id.edit_post);
-        cityEditor = findViewById(R.id.edit_city);
-        tagsEditor = findViewById(R.id.edit_tags);
-        tagsEditor.setOnEditorActionListener(this::onEditorSend);
         progressBar = findViewById(R.id.progress_bar);
+        nameEdit = findViewById(R.id.edit_name);
+        streetEdit = findViewById(R.id.edit_street);
+        postEdit = findViewById(R.id.edit_post);
+        cityEdit = findViewById(R.id.edit_city);
+        tagsEdit = findViewById(R.id.edit_tags);
         saveButton = findViewById(R.id.button_save);
-        saveButton.setOnClickListener(this::onSaveButtonClick);
-    }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        progressBar.setVisibility(View.GONE);
+        tagsEdit.setOnEditorActionListener(this::onEditorSend);
+        saveButton.setOnClickListener(this::onSaveButtonClick);
     }
 
     @Override
@@ -62,24 +55,24 @@ public class AddPlaceActivity extends AppCompatActivity {
     }
 
     private void onSaveButtonClick(View view){
-        submit();
+        submitPlace();
     }
 
-    private boolean onEditorSend(TextView v, int actionId, KeyEvent event){
+    private boolean onEditorSend(TextView view, int actionId, KeyEvent event){
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_SEND) {
-            submit();
+            submitPlace();
             handled = true;
         }
         return handled;
     }
 
-    private void submit(){
-        String name = nameEditor.getText().toString();
-        String street = streetEditor.getText().toString();
-        String post = postEditor.getText().toString();
-        String city = cityEditor.getText().toString();
-        String[] tags = tagsEditor.getText().toString().split("[\\s.,]+");
+    private void submitPlace(){
+        String name = nameEdit.getText().toString();
+        String street = streetEdit.getText().toString();
+        String post = postEdit.getText().toString();
+        String city = cityEdit.getText().toString();
+        String[] tags = tagsEdit.getText().toString().split("[\\s.,]+");
         Place place = new Place(null, name, street, post, city, tags);
         getPlacesService().create(place,
                 this::onCreateResponse, this::onErrorResponse, TAG);

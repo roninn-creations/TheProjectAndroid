@@ -15,19 +15,22 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login"/>
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.RegisterActivity"
-            android:label="@string/title_activity_register"/>
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".activities.LoginActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".activities.PlacesActivity"
             android:label="@string/title_activity_places"
             android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.PlaceActivity"
@@ -37,12 +40,12 @@
             android:name=".activities.AddPlaceActivity"
             android:label="@string/title_activity_add_place"
             android:parentActivityName=".activities.PlacesActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".activities.AddReviewActivity"
             android:label="@string/title_activity_add_review"
             android:parentActivityName=".activities.PlaceActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

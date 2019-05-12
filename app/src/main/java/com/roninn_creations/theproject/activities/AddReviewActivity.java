@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.roninn_creations.theproject.R;
@@ -30,13 +29,13 @@ public class AddReviewActivity extends AppCompatActivity {
 
     private Place place;
 
+    private ProgressBar progressBar;
     private RadioButton oneRadio;
     private RadioButton twoRadio;
     private RadioButton threeRadio;
     private RadioButton fourRadio;
     private RadioButton fiveRadio;
-    private EditText commentEditor;
-    private ProgressBar progressBar;
+    private EditText commentEdit;
     private Button saveButton;
 
 
@@ -47,22 +46,17 @@ public class AddReviewActivity extends AppCompatActivity {
 
         place = getGson().fromJson(getIntent().getStringExtra(EXTRA_KEY_PLACE), Place.class);
 
+        progressBar = findViewById(R.id.progress_bar);
         oneRadio = findViewById(R.id.radio_one);
         twoRadio = findViewById(R.id.radio_two);
         threeRadio = findViewById(R.id.radio_three);
         fourRadio = findViewById(R.id.radio_four);
         fiveRadio = findViewById(R.id.radio_five);
-        commentEditor = findViewById(R.id.edit_comment);
-        commentEditor.setOnEditorActionListener(this::onEditorSend);
-        progressBar = findViewById(R.id.progress_bar);
+        commentEdit = findViewById(R.id.edit_comment);
         saveButton = findViewById(R.id.button_save);
-        saveButton.setOnClickListener(this::onSaveButtonClick);
-    }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        progressBar.setVisibility(View.GONE);
+        commentEdit.setOnEditorActionListener(this::onEditorSend);
+        saveButton.setOnClickListener(this::onSaveButtonClick);
     }
 
     @Override
@@ -72,19 +66,19 @@ public class AddReviewActivity extends AppCompatActivity {
     }
 
     private void onSaveButtonClick(View view){
-        submit();
+        submitReview();
     }
 
-    private boolean onEditorSend(TextView v, int actionId, KeyEvent event){
+    private boolean onEditorSend(TextView view, int actionId, KeyEvent event){
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_SEND) {
-            submit();
+            submitReview();
             handled = true;
         }
         return handled;
     }
 
-    private void submit(){
+    private void submitReview(){
         int rating;
         if (oneRadio.isChecked())
             rating = 1;
@@ -98,7 +92,7 @@ public class AddReviewActivity extends AppCompatActivity {
             rating = 5;
         else
             rating = 0;
-        String comment = commentEditor.getText().toString();
+        String comment = commentEdit.getText().toString();
         Review review = new Review(null, getUser(), place.getId(), rating, comment, null);
         getReviewsService().create(review,
                 this::onCreateResponse, this::onErrorResponse, TAG);
