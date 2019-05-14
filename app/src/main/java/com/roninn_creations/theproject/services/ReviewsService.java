@@ -52,8 +52,8 @@ public class ReviewsService extends Service implements IService<Review> {
         };
         try {
             ReviewCreateModel createModel = new ReviewCreateModel(review);
-            JSONObject jsonReview = new JSONObject(gson.toJson(createModel));
-            requestHandler.post(path, jsonReview, responseConsumer, errorConsumer, tag);
+            JSONObject jsonModel = new JSONObject(gson.toJson(createModel));
+            requestHandler.post(path, jsonModel, responseConsumer, errorConsumer, tag);
         } catch (JSONException exception) {
             Log.e(tag, "ERROR: JSON exception!", exception);
             onError.accept("Connection error");

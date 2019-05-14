@@ -7,10 +7,14 @@
     <string name="places_path">places/</string>
     <string name="reviews_path">reviews/</string>
     <string name="date_format">yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'</string>
-    <string name="test_token">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYzQ3M2QwNWQxYTdjMmNhMDNhYzBkZiIsImV4cCI6MTU2MjUwMzc2OSwiaWF0IjoxNTU3MzE5NzY5fQ.royMRVWKHojHjmlZpPhtl2tEHY0vveIG58wvCrHlBio</string>
-    <string name="admin_id">5cc473d05d1a7c2ca03ac0df</string>
-    <string name="admin_name">admin</string>
-    <string name="admin_picture">https://gravatar.com/avatar/4ed0f4923df6c53813fb67919df5b9e1?d=identicon</string>
+    <!--<string name="test_token">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYzQ3M2QwNWQxYTdjMmNhMDNhYzBkZiIsImV4cCI6MTU2MjUwMzc2OSwiaWF0IjoxNTU3MzE5NzY5fQ.royMRVWKHojHjmlZpPhtl2tEHY0vveIG58wvCrHlBio</string>-->
+    <!--<string name="admin_id">5cc473d05d1a7c2ca03ac0df</string>-->
+    <!--<string name="admin_name">admin</string>-->
+    <!--<string name="admin_picture">https://gravatar.com/avatar/4ed0f4923df6c53813fb67919df5b9e1?d=identicon</string>-->
+    <string name="google_android_app_id">636365564018-orrt00osnisdd9hu5eg2uo1ajvbra5aj.apps.googleusercontent.com</string>
+    <string name="google_app_id">636365564018-0mkrimjuum5rvs9v9nevnaqi4hlgc6hn.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">333225234047170</string>
+    <string name="fb_login_protocol_scheme">fb333225234047170</string>
 
     <!-- Layout strings -->
     <string name="app_name">TheProject</string>

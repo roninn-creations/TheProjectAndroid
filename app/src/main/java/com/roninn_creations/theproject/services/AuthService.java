@@ -84,4 +84,92 @@ public class AuthService extends Service {
             onError.accept("Connection error");
         }
     }
+
+    public void google(String googleCode, BiConsumer<User, String> onResponse,
+                      Consumer<String> onError, String tag) {
+        Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
+            if (onResponse != null){
+                try {
+                    User user = gson.fromJson(response.getString("user"), User.class);
+                    String token = response.getString("token");
+                    onResponse.accept(user, token);
+                } catch (JSONException exception){
+                    Log.e(tag, "ERROR: JSON exception!", exception);
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        Consumer<VolleyError> errorConsumer = (VolleyError error) -> {
+            if (onError != null){
+                try {
+                    JSONObject responseBody = new JSONObject(
+                            new String(error.networkResponse.data, StandardCharsets.UTF_8));
+                    onError.accept(responseBody.getString("message"));
+                } catch (Exception exception) {
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        try {
+            GoogleAuthData authData = new GoogleAuthData(googleCode);
+            JSONObject jsonData = new JSONObject(gson.toJson(authData));
+            requestHandler.post(path + "google", jsonData, responseConsumer,
+                    errorConsumer, tag);
+        } catch (JSONException exception) {
+            Log.e(tag, "ERROR: JSON exception!", exception);
+            onError.accept("Connection error");
+        }
+    }
+
+    public void facebook(String facebookToken, BiConsumer<User, String> onResponse,
+                       Consumer<String> onError, String tag) {
+        Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
+            if (onResponse != null){
+                try {
+                    User user = gson.fromJson(response.getString("user"), User.class);
+                    String token = response.getString("token");
+                    onResponse.accept(user, token);
+                } catch (JSONException exception){
+                    Log.e(tag, "ERROR: JSON exception!", exception);
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        Consumer<VolleyError> errorConsumer = (VolleyError error) -> {
+            if (onError != null){
+                try {
+                    JSONObject responseBody = new JSONObject(
+                            new String(error.networkResponse.data, StandardCharsets.UTF_8));
+                    onError.accept(responseBody.getString("message"));
+                } catch (Exception exception) {
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        try {
+            FacebookAuthData authData = new FacebookAuthData(facebookToken);
+            JSONObject jsonData = new JSONObject(gson.toJson(authData));
+            requestHandler.post(path + "facebook", jsonData, responseConsumer,
+                    errorConsumer, tag);
+        } catch (JSONException exception) {
+            Log.e(tag, "ERROR: JSON exception!", exception);
+            onError.accept("Connection error");
+        }
+    }
+
+    private class GoogleAuthData {
+        private String code;
+
+        private GoogleAuthData(String code){
+            this.code = code;
+        }
+    }
+
+    private class FacebookAuthData {
+        private String token;
+
+        private FacebookAuthData(String token){
+            this.token = token;
+        }
+    }
 }
