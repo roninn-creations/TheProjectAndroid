@@ -30,6 +30,7 @@ public class AddPlaceActivity extends AppCompatActivity {
     private EditText cityEdit;
     private EditText tagsEdit;
     private Button saveButton;
+    private boolean isSubmitting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,6 @@ public class AddPlaceActivity extends AppCompatActivity {
         getRequestHandler().cancelRequests(TAG);
     }
 
-    private void onSaveButtonClick(View view){
-        submitPlace();
-    }
-
     private boolean onTagsEditorSend(TextView view, int actionId, KeyEvent event){
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_SEND) {
@@ -67,26 +64,36 @@ public class AddPlaceActivity extends AppCompatActivity {
         return handled;
     }
 
+    private void onSaveButtonClick(View view){
+        submitPlace();
+    }
+
     private void submitPlace(){
-        String name = nameEdit.getText().toString();
-        String street = streetEdit.getText().toString();
-        String post = postEdit.getText().toString();
-        String city = cityEdit.getText().toString();
-        String[] tags = tagsEdit.getText().toString().split("[\\s.,]+");
-        Place place = new Place(null, name, street, post, city, tags);
-        getPlacesService().create(place,
-                this::onCreateResponse, this::onErrorResponse, TAG);
-        progressBar.setVisibility(View.VISIBLE);
+        if (!isSubmitting){
+            isSubmitting = true;
+            progressBar.setVisibility(View.VISIBLE);
+
+            String name = nameEdit.getText().toString();
+            String street = streetEdit.getText().toString();
+            String post = postEdit.getText().toString();
+            String city = cityEdit.getText().toString();
+            String[] tags = tagsEdit.getText().toString().split("[\\s.,]+");
+            Place place = new Place(null, name, street, post, city, tags);
+            getPlacesService().create(place,
+                    this::onCreateResponse, this::onErrorResponse, TAG);
+        }
     }
 
     private void onCreateResponse(Place place){
         Intent placeIntent = new Intent(this, PlaceActivity.class);
         placeIntent.putExtra(PlaceActivity.EXTRA_KEY_PLACE, getGson().toJson(place));
         startActivity(placeIntent);
+        finish();
     }
 
     private void onErrorResponse(String message){
-        progressBar.setVisibility(View.GONE);
         Snackbar.make(saveButton, message, Snackbar.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        isSubmitting = false;
     }
 }

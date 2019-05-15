@@ -6,12 +6,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.roninn_creations.theproject.R;
+import com.roninn_creations.theproject.TheProjectApplication;
 import com.roninn_creations.theproject.adapters.PlacesAdapter;
 import com.roninn_creations.theproject.models.Place;
 import com.roninn_creations.theproject.views.NonScrollListView;
@@ -42,12 +46,14 @@ public class PlacesActivity extends AppCompatActivity{
         places = new ArrayList<>();
         placesAdapter = new PlacesAdapter(this, places);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
         progressBar = findViewById(R.id.progress_bar);
         searchView = findViewById(R.id.search);
         ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
         placesList = findViewById(R.id.list_places);
         FloatingActionButton fab = findViewById(R.id.fab_add);
 
+        setSupportActionBar(toolbar);
         searchView.setOnQueryTextListener(new OnQueryTextListener());
         closeButton.setOnClickListener(this::onSearchCloseButtonClick);
         placesList.setAdapter(placesAdapter);
@@ -58,21 +64,34 @@ public class PlacesActivity extends AppCompatActivity{
     @Override
     protected void onStart(){
         super.onStart();
-        progressBar.setVisibility(View.VISIBLE);
-        getPlacesService().readMany("?q=" + searchView.getQuery().toString(),
-                this::onGetPlacesResponse, this::onErrorResponse, TAG);
+        submitQuery(searchView.getQuery().toString());
     }
 
     @Override
-    protected void onResume(){
-        super.onResume();
-        searchView.setQuery(searchView.getQuery(), true);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_shared, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            ((TheProjectApplication)getApplication()).logOut();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onStop(){
         super.onStop();
         getRequestHandler().cancelRequests(TAG);
+    }
+
+    private void onSearchCloseButtonClick(View view){
+        searchView.setQuery("", false);
+        submitQuery("");
     }
 
     private void onPlacesItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -84,6 +103,14 @@ public class PlacesActivity extends AppCompatActivity{
     private void onAddButtonClick(View view){
         Intent addPlaceIntent = new Intent(this, AddPlaceActivity.class);
         startActivity(addPlaceIntent);
+    }
+
+    private void submitQuery(String query){
+        progressBar.setVisibility(View.VISIBLE);
+        query = (query != null && !query.equals("")) ? "?q=" + query : "";
+        getPlacesService().readMany(query,
+                this::onGetPlacesResponse, this::onErrorResponse, TAG);
+        searchView.clearFocus();
     }
 
     private void onGetPlacesResponse(List<Place> places){
@@ -98,19 +125,10 @@ public class PlacesActivity extends AppCompatActivity{
         Snackbar.make(placesList, message, Snackbar.LENGTH_LONG).show();
     }
 
-    private void onSearchCloseButtonClick(View view){
-        searchView.setQuery("", false);
-        getPlacesService().readMany("",
-                this::onGetPlacesResponse, this::onErrorResponse, TAG);
-        searchView.clearFocus();
-    }
-
     private class OnQueryTextListener implements SearchView.OnQueryTextListener {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            getPlacesService().readMany("?q=" + query.trim(),
-                    PlacesActivity.this::onGetPlacesResponse, PlacesActivity.this::onErrorResponse, TAG);
-            searchView.clearFocus();
+            submitQuery(query);
             return true;
         }
 

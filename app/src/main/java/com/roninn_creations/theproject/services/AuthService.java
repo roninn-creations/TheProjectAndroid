@@ -21,35 +21,6 @@ public class AuthService extends Service {
         super(path, gson, requestHandler);
     }
 
-    public void login(String email, String password, BiConsumer<User, String> onResponse,
-                      Consumer<String> onError, String tag) {
-        Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
-            if (onResponse != null){
-                try {
-                    User user = gson.fromJson(response.getString("user"), User.class);
-                    String token = response.getString("token");
-                    onResponse.accept(user, token);
-                } catch (JSONException exception){
-                    Log.e(tag, "ERROR: JSON exception!", exception);
-                    onError.accept("Connection error");
-                }
-            }
-        };
-        Consumer<VolleyError> errorConsumer = (VolleyError error) -> {
-            if (onError != null){
-                try {
-                    JSONObject responseBody = new JSONObject(
-                            new String(error.networkResponse.data, StandardCharsets.UTF_8));
-                    onError.accept(responseBody.getString("message"));
-                } catch (Exception exception) {
-                    onError.accept("Connection error");
-                }
-            }
-        };
-        requestHandler.getBasic(path + "basic", responseConsumer,
-                errorConsumer, email, password, tag);
-    }
-
     public void register(RegisterModel model, BiConsumer<User, String> onResponse,
                          Consumer<String> onError, String tag) {
         Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
@@ -83,6 +54,35 @@ public class AuthService extends Service {
             Log.e(tag, "ERROR: JSON exception!", exception);
             onError.accept("Connection error");
         }
+    }
+
+    public void basic(String email, String password, BiConsumer<User, String> onResponse,
+                      Consumer<String> onError, String tag) {
+        Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
+            if (onResponse != null){
+                try {
+                    User user = gson.fromJson(response.getString("user"), User.class);
+                    String token = response.getString("token");
+                    onResponse.accept(user, token);
+                } catch (JSONException exception){
+                    Log.e(tag, "ERROR: JSON exception!", exception);
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        Consumer<VolleyError> errorConsumer = (VolleyError error) -> {
+            if (onError != null){
+                try {
+                    JSONObject responseBody = new JSONObject(
+                            new String(error.networkResponse.data, StandardCharsets.UTF_8));
+                    onError.accept(responseBody.getString("message"));
+                } catch (Exception exception) {
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        requestHandler.getBasic(path + "basic", responseConsumer,
+                errorConsumer, email, password, tag);
     }
 
     public void google(String googleCode, BiConsumer<User, String> onResponse,
@@ -155,6 +155,34 @@ public class AuthService extends Service {
             Log.e(tag, "ERROR: JSON exception!", exception);
             onError.accept("Connection error");
         }
+    }
+
+    public void jwt(BiConsumer<User, String> onResponse,
+                         Consumer<String> onError, String tag) {
+        Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
+            if (onResponse != null){
+                try {
+                    User user = gson.fromJson(response.getString("user"), User.class);
+                    String token = response.getString("token");
+                    onResponse.accept(user, token);
+                } catch (JSONException exception){
+                    Log.e(tag, "ERROR: JSON exception!", exception);
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        Consumer<VolleyError> errorConsumer = (VolleyError error) -> {
+            if (onError != null){
+                try {
+                    JSONObject responseBody = new JSONObject(
+                            new String(error.networkResponse.data, StandardCharsets.UTF_8));
+                    onError.accept(responseBody.getString("message"));
+                } catch (Exception exception) {
+                    onError.accept("Connection error");
+                }
+            }
+        };
+        requestHandler.get(path, responseConsumer, errorConsumer, tag);
     }
 
     private class GoogleAuthData {

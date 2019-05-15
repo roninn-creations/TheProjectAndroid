@@ -25,8 +25,7 @@
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,31 +59,19 @@
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login"/>
-
-        <!--<com.google.android.gms.common.SignInButton-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="@dimen/textsize_medium"/>-->
+            android:text="@string/log_in"/>
 
         <Button
             android:id="@+id/button_google"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Google login"/>
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="4dp"
-            android:textSize="@dimen/textsize_medium"/>
+            android:text="@string/google_login"/>
 
         <Button
             android:id="@+id/button_facebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Facebook login"/>
+            android:text="@string/facebook_login"/>
 
         <Button
             android:id="@+id/button_register"

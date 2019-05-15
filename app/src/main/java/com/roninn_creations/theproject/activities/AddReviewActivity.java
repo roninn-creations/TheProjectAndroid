@@ -37,7 +37,7 @@ public class AddReviewActivity extends AppCompatActivity {
     private RadioButton fiveRadio;
     private EditText commentEdit;
     private Button saveButton;
-
+    private boolean isSubmitting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +65,6 @@ public class AddReviewActivity extends AppCompatActivity {
         getRequestHandler().cancelRequests(TAG);
     }
 
-    private void onSaveButtonClick(View view){
-        submitReview();
-    }
-
     private boolean onCommentEditorSend(TextView view, int actionId, KeyEvent event){
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_SEND) {
@@ -78,35 +74,42 @@ public class AddReviewActivity extends AppCompatActivity {
         return handled;
     }
 
+    private void onSaveButtonClick(View view){
+        submitReview();
+    }
+
     private void submitReview(){
-        int rating;
-        if (oneRadio.isChecked())
-            rating = 1;
-        else if (twoRadio.isChecked())
-            rating = 2;
-        else if (threeRadio.isChecked())
-            rating = 3;
-        else if (fourRadio.isChecked())
-            rating = 4;
-        else if (fiveRadio.isChecked())
-            rating = 5;
-        else
-            rating = 0;
-        String comment = commentEdit.getText().toString();
-        Review review = new Review(null, getUser(), place.getId(), rating, comment, null);
-        getReviewsService().create(review,
-                this::onCreateResponse, this::onErrorResponse, TAG);
-        progressBar.setVisibility(View.VISIBLE);
+        if (!isSubmitting){
+            isSubmitting = true;
+            progressBar.setVisibility(View.VISIBLE);
+
+            int rating;
+            if (oneRadio.isChecked())
+                rating = 1;
+            else if (twoRadio.isChecked())
+                rating = 2;
+            else if (threeRadio.isChecked())
+                rating = 3;
+            else if (fourRadio.isChecked())
+                rating = 4;
+            else if (fiveRadio.isChecked())
+                rating = 5;
+            else
+                rating = 0;
+            String comment = commentEdit.getText().toString();
+            Review review = new Review(null, getUser(), place.getId(), rating, comment, null);
+            getReviewsService().create(review,
+                    this::onCreateResponse, this::onErrorResponse, TAG);
+        }
     }
 
     private void onCreateResponse(Review review) {
-        Intent placeIntent = new Intent(this, PlaceActivity.class);
-        placeIntent.putExtra(PlaceActivity.EXTRA_KEY_PLACE, getGson().toJson(place));
-        startActivity(placeIntent);
+        finish();
     }
 
     private void onErrorResponse(String message){
-        progressBar.setVisibility(View.GONE);
         Snackbar.make(saveButton, message, Snackbar.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        isSubmitting = false;
     }
 }

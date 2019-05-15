@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText passwordEdit;
     private EditText password2Edit;
     private Button registerButton;
+    private boolean isSubmitting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +58,6 @@ public class RegisterActivity extends AppCompatActivity {
         getRequestHandler().cancelRequests(TAG);
     }
 
-    private void onRegisterButtonClick(View view){
-        submitRegistration();
-    }
-
     private boolean onPassword2EditorSend(TextView view, int actionId, KeyEvent event){
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_SEND){
@@ -70,30 +67,43 @@ public class RegisterActivity extends AppCompatActivity {
         return handled;
     }
 
+    private void onRegisterButtonClick(View view){
+        submitRegistration();
+    }
+
     private void submitRegistration(){
-        String password = passwordEdit.getText().toString();
-        String password2 = password2Edit.getText().toString();
-        if (!password.equals(password2)){
-            Snackbar.make(registerButton, "Passwords do not match",
-                    Snackbar.LENGTH_LONG).show();
-            return;
+        if (!isSubmitting){
+            isSubmitting = true;
+            String password = passwordEdit.getText().toString();
+            String password2 = password2Edit.getText().toString();
+            if (!password.equals(password2)){
+                Snackbar.make(registerButton, "Passwords do not match",
+                        Snackbar.LENGTH_LONG).show();
+                isSubmitting = false;
+                return;
+            }
+            progressBar.setVisibility(View.VISIBLE);
+            String email = emailEdit.getText().toString();
+            String name = nameEdit.getText().toString();
+            RegisterModel model = new RegisterModel(email, name, password);
+            getAuthService().register(model,
+                    this::onRegisterResponse, this::onErrorResponse, TAG);
         }
-        String email = emailEdit.getText().toString();
-        String name = nameEdit.getText().toString();
-        RegisterModel model = new RegisterModel(email, name, password);
-        getAuthService().register(model,
-                this::onRegisterResponse, this::onErrorResponse, TAG);
     }
 
     private void onRegisterResponse(User user, String token){
         setUser(user);
         getRequestHandler().setToken(token);
         Intent placesIntent = new Intent(this, PlacesActivity.class);
+        progressBar.setVisibility(View.GONE);
+        isSubmitting = false;
         startActivity(placesIntent);
+        finish();
     }
 
     private void onErrorResponse(String message){
-        progressBar.setVisibility(View.GONE);
         Snackbar.make(registerButton, message, Snackbar.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        isSubmitting = false;
     }
 }
