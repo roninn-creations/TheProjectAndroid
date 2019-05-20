@@ -14,10 +14,6 @@ public class RegisterModel {
         this.password = password;
     }
 
-    public RegisterModel(String email, String name, String password) {
-        this(email, name, password, null);
-    }
-
     public String getEmail() {
         return email;
     }

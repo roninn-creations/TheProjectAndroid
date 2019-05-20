@@ -85,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             String email = emailEdit.getText().toString();
             String name = nameEdit.getText().toString();
-            RegisterModel model = new RegisterModel(email, name, password);
+            RegisterModel model = new RegisterModel(email, name, password, null);
             getAuthService().register(model,
                     this::onRegisterResponse, this::onErrorResponse, TAG);
         }
