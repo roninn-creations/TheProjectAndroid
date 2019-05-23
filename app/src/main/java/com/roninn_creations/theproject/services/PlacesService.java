@@ -131,12 +131,11 @@ public class PlacesService extends Service implements IService<Place> {
         }
     }
 
-    public void delete(String id, Consumer<Place> onResponse,
+    public void delete(String id, Runnable onResponse,
                        Consumer<String> onError, String tag){
-        Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
+        Runnable responseRunnable = () -> {
             if (onResponse != null){
-                Place place = gson.fromJson(response.toString(), Place.class);
-                onResponse.accept(place);
+                onResponse.run();
             }
         };
         Consumer<VolleyError> errorConsumer = (VolleyError error) -> {
@@ -150,6 +149,6 @@ public class PlacesService extends Service implements IService<Place> {
                 }
             }
         };
-        requestHandler.delete(path + id, responseConsumer, errorConsumer, tag);
+        requestHandler.delete(path + id, responseRunnable, errorConsumer, tag);
     }
 }

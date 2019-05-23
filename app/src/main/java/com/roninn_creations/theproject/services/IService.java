@@ -13,6 +13,6 @@ public interface IService<T> {
               Consumer<String> onError, String tag);
     void update(T model, Consumer<T> onResponse,
                 Consumer<String> onError, String tag);
-    void delete(String id, Consumer<T> onResponse,
+    void delete(String id, Runnable onResponse,
                 Consumer<String> onError, String tag);
 }

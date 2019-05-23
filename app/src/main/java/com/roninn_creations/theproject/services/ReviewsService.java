@@ -153,28 +153,20 @@ public class ReviewsService extends Service implements IService<Review> {
             }
         };
         try {
-            JSONObject jsonReview = new JSONObject(gson.toJson(review));
-            requestHandler.put(path + review.getId(), jsonReview, responseConsumer, errorConsumer, tag);
+            ReviewCreateModel createModel = new ReviewCreateModel(review);
+            JSONObject jsonModel = new JSONObject(gson.toJson(createModel));
+            requestHandler.put(path + review.getId(), jsonModel, responseConsumer, errorConsumer, tag);
         } catch (JSONException exception) {
             Log.e(tag, "ERROR: JSON exception!", exception);
             onError.accept("Connection error");
         }
     }
 
-    public void delete(String id, Consumer<Review> onResponse,
+    public void delete(String id, Runnable onResponse,
                        Consumer<String> onError, String tag){
-        Consumer<JSONObject> responseConsumer = (JSONObject response) -> {
+        Runnable responseRunnable = () -> {
             if (onResponse != null){
-                try {
-                    Review review = gson.fromJson(response.toString(), Review.class);
-                    JSONObject jsonUser = response.getJSONObject("user");
-                    User user = gson.fromJson(jsonUser.toString(), User.class);
-                    review.setUser(user);
-                    onResponse.accept(review);
-                } catch (JSONException exception) {
-                    Log.e(tag, "ERROR: JSON exception!", exception);
-                    onError.accept("Connection error");
-                }
+                onResponse.run();
             }
         };
         Consumer<VolleyError> errorConsumer = (VolleyError error) -> {
@@ -188,7 +180,7 @@ public class ReviewsService extends Service implements IService<Review> {
                 }
             }
         };
-        requestHandler.delete(path + id, responseConsumer, errorConsumer, tag);
+        requestHandler.delete(path + id, responseRunnable, errorConsumer, tag);
     }
 
     private class ReviewCreateModel {

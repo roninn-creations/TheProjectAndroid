@@ -99,12 +99,12 @@ public class RequestHandler{
         requestQueue.add(request);
     }
 
-    public void delete(String path, Consumer<JSONObject> onResponse,
+    public void delete(String path, Runnable onResponse,
                        Consumer<VolleyError> onError, String tag){
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url + path, null,
                 (JSONObject response) -> {
                     if (onResponse != null)
-                        onResponse.accept(response);
+                        onResponse.run();
                 },
                 (VolleyError error) -> {
                     if (onError != null)

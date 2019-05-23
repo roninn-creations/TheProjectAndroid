@@ -48,7 +48,7 @@ public class AuthService extends Service {
         };
         try {
             JSONObject jsonModel = new JSONObject(gson.toJson(model));
-            requestHandler.post(path, jsonModel, responseConsumer, errorConsumer, tag);
+            requestHandler.post(path + "register", jsonModel, responseConsumer, errorConsumer, tag);
         }
         catch (JSONException exception) {
             Log.e(tag, "ERROR: JSON exception!", exception);

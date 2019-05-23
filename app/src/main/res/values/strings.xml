@@ -47,4 +47,8 @@
     <string name="facebook_login">Facebook login</string>
     <string name="register">Register</string>
 
+    <!-- Test strings -->
+    <string name="test_email">shark@mail.com</string>
+    <string name="test_password">Passw0rd</string>
+
 </resources>

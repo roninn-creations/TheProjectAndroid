@@ -9,9 +9,6 @@ import com.android.volley.toolbox.ImageLoader;
 
 import static com.android.volley.toolbox.Volley.newRequestQueue;
 
-/***
- * From: https://developer.android.com/training/volley/requestqueue
- */
 public class Volley {
 
     private final RequestQueue requestQueue;
